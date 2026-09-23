@@ -1,0 +1,26 @@
+name: Reporte diario F2Pool
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # cada hora, en punto (hora UTC)
+  workflow_dispatch: {}   # permite ejecutarlo a mano desde la pestaña Actions
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Enviar reporte
+        env:
+          F2POOL_API_SECRET: ${{ secrets.F2POOL_API_SECRET }}
+          F2POOL_USER: ${{ secrets.F2POOL_USER }}
+          F2POOL_CURRENCIES: ${{ vars.F2POOL_CURRENCIES || 'bitcoin' }}
+          TEXTMEBOT_APIKEY: ${{ secrets.TEXTMEBOT_APIKEY }}
+          TEXTMEBOT_RECIPIENT: ${{ secrets.TEXTMEBOT_RECIPIENT }}
+        run: python f2pool_report.py
