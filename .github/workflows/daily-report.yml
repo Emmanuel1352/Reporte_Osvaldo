@@ -2,7 +2,7 @@ name: Reporte diario F2Pool
 
 on:
   schedule:
-    - cron: "0 * * * *"   # cada hora, en punto (hora UTC)
+    - cron: "20 * * * *"   # cada hora, minuto 20 (evita la hora en punto)
   workflow_dispatch: {}   # permite ejecutarlo a mano desde la pestaña Actions
 
 jobs:
