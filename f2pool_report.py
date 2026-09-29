@@ -99,13 +99,11 @@ def build_report(results, now):
             lines.append("")
             lines.append("🔴 *Fuera de línea:*")
             down.sort(key=lambda w: w.get("last_share_at") or 0)
-            for w in down[:15]:
+            for w in down:
                 ago = fmt_ago(w.get("last_share_at"), now)
                 lines.append(
                     "- %s (último share %s)" % (info(w).get("name"), ago)
                 )
-            if len(down) > 15:
-                lines.append("... y %d más" % (len(down) - 15))
         if on and len(workers) <= 30:
             lines.append("")
             lines.append("🟢 *En línea (1h prom.):*")
